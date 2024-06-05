@@ -10,6 +10,7 @@ import {
   SET_READY_PAYMENT,
 } from "../../../reducers/constants/BookTicket";
 import { PayPalButton } from "react-paypal-button-v2";
+import { Button } from "@material-ui/core";
 
 const makeObjError = (name, value, dataSubmit) => {
   let newErrors = {
@@ -243,20 +244,24 @@ export default function PayMent() {
         </div>
         {/* đặt vé */}
         <div className="">
-          {/* <button
+          <button
             className={classes.btnDV}
             // disabled={!isReadyPayment}
             onClick={handleBookTicket}
           >
-            Đặt Vé
-          </button> */}
-          {
+            {/* Đặt Vé */}
+          </button>
+          {/* {
             amount && (
-              <PayPalButton className={classes.btnDV} amount={convertVNDtoUSD(amount)} onSuccess={successPaymentHandler} options={{ 
+              <Button className={classes.btnDV} 
+              amount={convertVNDtoUSD(amount)} onSuccess={successPaymentHandler} options={{ 
                 clientId:'AaiOR0UuKrkTaDWKtlae81PRr3enX2RBcxrcpX39uHH2VJy1ntxfIu3LuU8wOgey8oHm4SzH3cwqM5N5'
-                }} />
+                }} //api đặt vé đã call đâu , cái components đặt vé đâu á ?
+                 /> 
+                //  cái PayPalButton đấy là của paypal á
+                // giờ thêm cái nút button đê
             )
-          }
+          } */}
         </div>
       </div>
     </aside>

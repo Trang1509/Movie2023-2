@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
 const { application } = require('express');
 const CryptoJS = require('crypto-js');
 const axios = require('axios')
-
+const qrcode = require('qrcode')
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -460,26 +460,37 @@ function sortObject(o) {
 
   
 
-app.post('/api/QuanLyDatVe/DatVe', async (req, res) => {
+  app.post('/api/QuanLyDatVe/DatVe', async (req, res) => {
 
 
 
     for (const ve of req.body.danhSachVe){
-        await new Promise((resolve, reject) => {
-            dbConn.query("INSERT INTO datve SET ? ", { 
-                tenGhe: ve.maGhe,
-                loaiGhe: ve.giaVe > 75000 ? "Vip" : "Thuong",
-                giaVe: ve.giaVe,
-                taiKhoanNguoiDat: req.body.taiKhoanNguoiDung,
-                maLichChieu: req.body.maLichChieu, 
-            }, function (error, results, fields) {
-                if (error) throw error;
-            });
-            resolve();
-        })
+        obj = { 
+            tenGhe: ve.maGhe,
+            loaiGhe: ve.giaVe > 75000 ? "Vip" : "Thuong",
+            giaVe: ve.giaVe,
+            taiKhoanNguoiDat: req.body.taiKhoanNguoiDung,
+            maLichChieu: req.body.maLichChieu,
     }
-    return res.send("Success");
+        dbConn.query("INSERT INTO datve SET ? ", obj);
+        const qrCodePromise = new Promise((resolve, reject) => {
+            qrcode.toDataURL(JSON.stringify(obj), (err, url) => {
+              if (err) {
+                reject(err); // Handle QR code generation errors
+              } else {
+                resolve(url);
+              }
+            });
+          });
+    
+          const qrCodeBase64 = await qrCodePromise;
+          res.send( {
+            message: 'Vé đặt thành công!',
+            qrCode: `${qrCodeBase64}`,
+          });
+}
 });
+
 
 app.post('/api/QuanLyDatVe/TaoLichChieu', async (req, res) => {
     dbConn.query("INSERT INTO lichchieuinsert SET ? ", { 
