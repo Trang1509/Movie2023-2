@@ -4,7 +4,7 @@ import MuiDialogContent from "@material-ui/core/DialogContent";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import { createMuiTheme } from "@material-ui/core";
+import { createTheme } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
   return {
@@ -176,7 +176,7 @@ const DialogTitle = withStyles(styles)((props) => {
   );
 });
 
-const materialTheme = createMuiTheme({
+const materialTheme = createTheme({
   overrides: {
     MuiPickersToolbar: {
       toolbar: {

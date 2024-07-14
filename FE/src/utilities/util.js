@@ -17,3 +17,12 @@ export const imageUpload = async (file) => {
     const data = await res.json();
   return data;
 };
+
+export function formatCurrency(amount) {
+  // Sử dụng Intl.NumberFormat để định dạng số tiền thành đơn vị tiền tệ VND
+  const formatter = new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND'
+  });
+  return formatter.format(amount);
+}

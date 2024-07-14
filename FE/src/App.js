@@ -22,6 +22,7 @@ import BookTicket from "./pages/BookTicket";
 import UsersManagement from "./pages/UsersManagement";
 import MoviesManagement from "./pages/MoviesManagement";
 import CreateShowtime from "./pages/CreateShowtime";
+import Statistical from "./pages/Statistical";
 import Book from "./pages/Book";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -161,7 +162,7 @@ function App() {
          
             <Route
               exact
-              path={["/admin/users", "/admin/movies", "/admin/showtimes", "/admin/films/addnew", "/admin/book"]}
+              path={["/admin/users", "/admin/movies", "/admin/showtimes", "/admin/films/addnew", "/admin/book", "/admin/revenue"]}
             >
               <AdminLayout>
                 <AdminRoute
@@ -184,6 +185,12 @@ function App() {
                   path="/admin/book"
                   component={Book}
                 />
+              <AdminRoute
+                  exact
+                  path="/admin/revenue"
+                  component={Statistical}
+                />
+                
                 <AdminRoute
                   exact
                   path="/admin/films/addnew"

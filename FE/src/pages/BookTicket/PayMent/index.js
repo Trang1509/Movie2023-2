@@ -14,7 +14,7 @@ import { Button } from "@material-ui/core";
 
 const makeObjError = (name, value, dataSubmit) => {
   let newErrors = {
-    ...dataSubmit.errors,
+    ...dataSubmit.errors, 
     [name]:
       value?.trim() === ""
         ? `${name.charAt(0).toUpperCase() + name.slice(1)} không được bỏ trống`
@@ -249,17 +249,16 @@ export default function PayMent() {
             // disabled={!isReadyPayment}
             onClick={handleBookTicket}
           >
-            {/* Đặt Vé */}
+            Đặt Vé
           </button>
           {/* {
             amount && (
               <Button className={classes.btnDV} 
               amount={convertVNDtoUSD(amount)} onSuccess={successPaymentHandler} options={{ 
                 clientId:'AaiOR0UuKrkTaDWKtlae81PRr3enX2RBcxrcpX39uHH2VJy1ntxfIu3LuU8wOgey8oHm4SzH3cwqM5N5'
-                }} //api đặt vé đã call đâu , cái components đặt vé đâu á ?
+                }} 
                  /> 
-                //  cái PayPalButton đấy là của paypal á
-                // giờ thêm cái nút button đê
+                
             )
           } */}
         </div>

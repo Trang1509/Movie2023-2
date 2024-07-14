@@ -10,6 +10,7 @@ const { application } = require('express');
 const CryptoJS = require('crypto-js');
 const axios = require('axios')
 const qrcode = require('qrcode')
+const EmailService = require('../BE/EmailService')
 app.use(cors())
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -458,7 +459,38 @@ function sortObject(o) {
     return sorted;
   }
 
-  
+  app.get('/api/QuanLyDatVe/ThongKeDatVe', async (req, res) => {
+    try {
+        // Query to get ticket booking statistics
+        const query = `
+            SELECT 
+                COUNT(*) AS totalTickets,
+                SUM(giaVe) AS totalRevenue
+            FROM 
+                datve
+        `;
+        
+        dbConn.query(query, (err, results) => {
+            if (err) {
+                throw err;
+            }
+            
+            // Assuming results will have only one row due to COUNT(*) and SUM() aggregation
+            const { totalTickets, totalRevenue } = results[0];
+            
+            res.json({
+                totalTickets,
+                totalRevenue
+            });
+        });
+        
+    } catch (error) {
+        console.error('Error retrieving ticket booking statistics:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+});
+
+
 
   app.post('/api/QuanLyDatVe/DatVe', async (req, res) => {
 
@@ -484,10 +516,13 @@ function sortObject(o) {
           });
     
           const qrCodeBase64 = await qrCodePromise;
+          
           res.send( {
             message: 'Vé đặt thành công!',
             qrCode: `${qrCodeBase64}`,
           });
+          
+          await EmailService.sendEmailCreateOrder();
 }
 });
 

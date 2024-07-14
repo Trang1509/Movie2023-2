@@ -31,6 +31,7 @@ registerRoute(
     cacheName: "images",
     plugins: [
       new ExpirationPlugin({ maxEntries: 50 }),
+      
     ],
   })
 );

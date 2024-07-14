@@ -43,6 +43,11 @@ const items = [
     icon: ListIcon,
     title: 'Danh sách đặt'
   },
+  {
+    href: '/admin/revenue',
+    icon: ListIcon,
+    title: 'Doanh thu'
+  },
 ];
 
 const useStyles = makeStyles(() => ({
